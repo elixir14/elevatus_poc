@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     MONGODB_URL: str
     DATABASE_NAME: str
+    AUTHJWT_SECRET_KEY: str = "secret"
 
     class Config:
         case_sensitive = True

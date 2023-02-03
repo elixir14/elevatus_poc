@@ -5,12 +5,14 @@ from contextvars import ContextVar
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_jwt_auth import AuthJWT
 from requests import Request
 from starlette.responses import JSONResponse
 from starlette.routing import Match
 
+from apps.candidates.api.v1 import candidate_router
 from apps.users.api.v1 import user_router
-from elevatus_poc.core.config import settings
+from elevatus_poc.core.config import settings, Settings
 from elevatus_poc.core.logs import setup_logging
 
 logger = logging.getLogger(__name__)
@@ -21,10 +23,12 @@ def get_application():
         title=settings.PROJECT_NAME,
         docs_url="/"
     )
-
+    origins = [str(origin) for origin in settings.BACKEND_CORS_ORIGINS]
+    if settings.DEBUG is True:
+        origins = ["*"]
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -86,4 +90,10 @@ async def startup_event():
     setup_logging()
 
 
+@AuthJWT.load_config
+def get_config():
+    return Settings()
+
+
 app.include_router(user_router)
+app.include_router(candidate_router)

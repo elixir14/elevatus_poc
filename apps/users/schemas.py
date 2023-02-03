@@ -1,11 +1,12 @@
 from pydantic import BaseModel, Field, EmailStr
 
+from elevatus_poc.core.schemas import ResponseBaseModel
 
-class UserSchema(BaseModel):
+
+class UserSchema(ResponseBaseModel):
     firstname: str = Field(...)
     lastname: str = Field(...)
     email: EmailStr = Field(...)
-    password: str = Field(...)
 
 
 class UserCreateSchema(BaseModel):
@@ -23,3 +24,26 @@ class UserCreateSchema(BaseModel):
                 "password": "xxxx",
             }
         }
+
+
+class UserUpdateSchema(BaseModel):
+    firstname: str = Field(...)
+    lastname: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "firstname": "John",
+                "lastname": "smith",
+            }
+        }
+
+
+class LoginSchema(BaseModel):
+    email: str
+    password: str
+
+
+class TokenBase(BaseModel):
+    access: str
+    refresh: str
