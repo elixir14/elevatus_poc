@@ -24,7 +24,6 @@ class CandidateCreateSchema(BaseModel):
     firstname: str = Field(...)
     lastname: str = Field(...)
     email: EmailStr = Field(...)
-    password: str = Field(...)
     career_level: str = Field(...)
     job_major: str = Field(...)
     years_of_experience: int = Field(...)
@@ -42,7 +41,6 @@ class CandidateCreateSchema(BaseModel):
                 "firstname": "John",
                 "lastname": "smith",
                 "email": "jon@usa.com",
-                "password": "xxxx",
                 "career_level": "Senior",
                 "job_major": "Computer Science",
                 "years_of_experience": 5,
