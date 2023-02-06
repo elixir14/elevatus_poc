@@ -21,7 +21,9 @@ logger = logging.getLogger(__name__)
 def get_application():
     _app = FastAPI(
         title=settings.PROJECT_NAME,
-        docs_url="/"
+        docs_url="/",
+        redoc_url="/redoc",
+        openapi_url="/openapi.json",
     )
     origins = [str(origin) for origin in settings.BACKEND_CORS_ORIGINS]
     if settings.DEBUG is True:
@@ -95,5 +97,5 @@ def get_config():
     return Settings()
 
 
-app.include_router(user_router)
-app.include_router(candidate_router)
+app.include_router(user_router, prefix="/api/v1")
+app.include_router(candidate_router, prefix="/api/v1")

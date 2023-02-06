@@ -17,7 +17,7 @@ user_router = APIRouter(tags=["User"])
 logger = logging.getLogger(__name__)
 
 
-@user_router.post("/user", response_model=UserSchema)
+@user_router.post("/user/", response_model=UserSchema)
 async def add_user(payload: UserCreateSchema = Body(...)):
     logger.info("User create API called for %s", payload.email)
     user_data = jsonable_encoder(payload)
