@@ -37,7 +37,7 @@ async def get_candidates(
 
 
 @candidate_router.get("/generate-report")
-async def get_candidates(
+async def get_candidates_report(
         page_size: int = Query(""),
         page_num: int = 1,
         global_search: str = Query(""),
