@@ -33,7 +33,6 @@ class CandidateCreateSchema(BaseModel):
     city: str = Field(...)
     salary: str = Field(...)
     gender: Gender = Gender.MALE.value
-    user_id: str
 
     class Config:
         schema_extra = {
